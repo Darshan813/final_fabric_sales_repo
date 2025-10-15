@@ -23,11 +23,52 @@ jobs:
       run: |
         pip install pyspark pytest nbconvert nbformat
     
-    - name: Convert notebooks to Python
+    - name: Debug - Show notebook structure
       run: |
-        jupyter nbconvert --to python notebooks/sales_transformations_notebook.ipynb
-        echo " Notebook converted successfully"
+        echo "📂 Notebooks directory structure:"
         ls -la notebooks/
+        echo ""
+        echo "📂 Contents of sales_transformations.Notebook:"
+        ls -la notebooks/sales_transformations.Notebook/ || echo "Directory not found"
+    
+    - name: Convert Fabric notebooks to Python
+      run: |
+        # Fabric stores notebooks as directories with .Notebook extension
+        # Inside each directory is a .py file with the actual code
+        
+        # Look for the Python file inside the .Notebook directory
+        if [ -d "notebooks/sales_transformations.Notebook" ]; then
+          echo "✅ Found sales_transformations.Notebook directory"
+          
+          # Find the .py file inside (usually named notebook-content.py or similar)
+          NOTEBOOK_FILE=$(find notebooks/sales_transformations.Notebook -name "*.py" | head -1)
+          
+          if [ -n "$NOTEBOOK_FILE" ]; then
+            echo "✅ Found notebook file: $NOTEBOOK_FILE"
+            # Copy it to a location where tests can import it
+            cp "$NOTEBOOK_FILE" notebooks/sales_transformations_notebook.py
+            echo "✅ Copied to notebooks/sales_transformations_notebook.py"
+          else
+            echo "❌ No .py file found in the .Notebook directory"
+            echo "Contents:"
+            ls -la notebooks/sales_transformations.Notebook/
+            exit 1
+          fi
+        else
+          echo "❌ sales_transformations.Notebook directory not found"
+          exit 1
+        fi
+    
+    - name: Verify converted file
+      run: |
+        echo "📄 Checking converted file:"
+        if [ -f "notebooks/sales_transformations_notebook.py" ]; then
+          echo "✅ File exists"
+          head -20 notebooks/sales_transformations_notebook.py
+        else
+          echo "❌ File not found"
+          exit 1
+        fi
     
     - name: Run tests
       run: |
