@@ -1,0 +1,27 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {},
+  "name": "Dataflow 1",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "bronze Customers": {
+      "queryId": "6b831e54-6b61-4797-b6b6-cd85e907d527",
+      "queryName": "bronze Customers",
+      "loadEnabled": false
+    },
+    "bronze Customers_DataDestination": {
+      "queryId": "89f65d67-5383-4c30-9616-c9d34459f0f6",
+      "queryName": "bronze Customers_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"c10c5940-09fe-4fd5-bb1f-e7185b53d5eb\",\"DatasourceId\":\"c97d8263-5316-4a96-956d-04c89dee460f\"}"
+    }
+  ]
+}
