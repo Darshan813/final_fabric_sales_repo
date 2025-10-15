@@ -21,13 +21,25 @@ jobs:
     
     - name: Install dependencies
       run: |
-        pip install pyspark pytest nbconvert nbformat
+        pip install pyspark pytest
     
-    - name: Convert notebooks to Python
+    - name: Extract notebook code from Fabric format
       run: |
-        jupyter nbconvert --to python notebooks/sales_transformations_notebook.ipynb
-        echo " Notebook converted successfully"
-        ls -la notebooks/
+        echo "📦 Extracting sales_transformations notebook..."
+        
+        # Copy the Python code from the .Notebook directory
+        if [ -f "notebooks/sales_transformations.Notebook/notebook-content.py" ]; then
+          cp notebooks/sales_transformations.Notebook/notebook-content.py notebooks/sales_transformations_notebook.py
+          echo "✅ Extracted sales_transformations_notebook.py"
+        else
+          echo "❌ notebook-content.py not found"
+          ls -la notebooks/sales_transformations.Notebook/
+          exit 1
+        fi
+        
+        # Verify the file
+        echo "📄 First 20 lines of extracted code:"
+        head -20 notebooks/sales_transformations_notebook.py
     
     - name: Run tests
       run: |
