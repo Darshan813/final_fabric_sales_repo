@@ -1,11 +1,15 @@
-from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
-from pyspark.sql import Row
 import pytest
-
 import sys
 import os
+
+# Add the notebooks directory to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'notebooks'))
 
+from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
+from pyspark.sql import Row
+
+# Import from the extracted notebook
 from sales_transformations_notebook import clean_sales
 
 @pytest.fixture(scope="session")
