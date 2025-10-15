@@ -1,0 +1,34 @@
+name: Test Fabric Notebooks
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-notebooks:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        pip install pyspark pytest nbconvert nbformat
+    
+    - name: Convert notebooks to Python
+      run: |
+        jupyter nbconvert --to python notebooks/sales_transformations_notebook.ipynb
+        echo " Notebook converted successfully"
+        ls -la notebooks/
+    
+    - name: Run tests
+      run: |
+        pytest tests/ -v --tb=short
