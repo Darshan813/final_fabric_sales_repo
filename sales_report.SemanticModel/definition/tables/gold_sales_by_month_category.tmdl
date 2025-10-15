@@ -1,0 +1,70 @@
+table gold_sales_by_month_category
+	lineageTag: 19e18723-c955-44fc-8fe1-349a77fc0e1a
+	sourceLineageTag: [gold].[gold_sales_by_month_category]
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: c82641d4-305a-4dc6-b5bb-7cbef254f414
+		sourceLineageTag: Year
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 460d3cc9-5140-43df-bfa1-a68e4809cc23
+		sourceLineageTag: Month
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategory
+		dataType: string
+		lineageTag: 1699f65f-261d-4a5d-b16f-a649bee255ee
+		sourceLineageTag: ProductCategory
+		summarizeBy: none
+		sourceColumn: ProductCategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a444df6-e5f3-4888-b9dc-3134986d5eaf
+		sourceLineageTag: Revenue
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitsSold
+		dataType: int64
+		formatString: 0
+		lineageTag: ba97d73b-99fa-4287-a94c-afdd37461632
+		sourceLineageTag: UnitsSold
+		summarizeBy: sum
+		sourceColumn: UnitsSold
+
+		annotation SummarizationSetBy = Automatic
+
+	column UniqueCustomers
+		dataType: int64
+		formatString: 0
+		lineageTag: f180d359-6bb2-45fb-848e-16fc205f6053
+		sourceLineageTag: UniqueCustomers
+		summarizeBy: sum
+		sourceColumn: UniqueCustomers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition gold_sales_by_month_category = entity
+		mode: directLake
+		source
+			entityName: gold_sales_by_month_category
+			schemaName: gold
+			expressionSource: 'DirectLake - Sales_Lakehouse'
+
