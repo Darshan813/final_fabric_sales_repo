@@ -24,8 +24,7 @@
 
 # Welcome to your new notebook
 # Type here in the cell editor to add code!
-print('Bheruji')
-print('Bheruji')
+import os 
 
 # METADATA ********************
 
@@ -37,17 +36,6 @@ print('Bheruji')
 # CELL ********************
 
 !pip install kagglehub
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
-
-import os 
 
 # METADATA ********************
 
@@ -100,16 +88,6 @@ df_spark = spark.createDataFrame(df)
 # CELL ********************
 
 df_spark.write.format("delta").mode("overwrite").saveAsTable("bronze.sales")
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
-
 
 # METADATA ********************
 

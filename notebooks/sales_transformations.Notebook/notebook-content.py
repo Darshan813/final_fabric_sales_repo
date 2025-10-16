@@ -16,7 +16,7 @@
 from pyspark.sql import DataFrame
 from pyspark.sql import functions as F
 
-print()
+
 
 # METADATA ********************
 
@@ -51,7 +51,6 @@ def clean_sales(df: DataFrame) -> DataFrame:
     )
 
     cleaned_df = cleaned_df.drop('totalamount')
-
     return cleaned_df
 
 # METADATA ********************
