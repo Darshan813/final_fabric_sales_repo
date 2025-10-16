@@ -46,7 +46,7 @@ def clean_sales(df: DataFrame) -> DataFrame:
         .withColumn("total_amount",
             F.round(F.col("quantity") * F.col("price_per_unit"), 2)
         )
-        .na.drop(subset=["total_amount"])
+        #.na.drop(subset=["total_amount"])
         .filter(F.col("total_amount") > 0)
     )
 
